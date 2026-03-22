@@ -1,0 +1,66 @@
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+
+proxies:
+  # ===== Trojan 入口 =====
+  - name: Lv3 香港 01 [2.0]
+    type: trojan
+    server: sdv3-hk.kunlun04dns.com
+    port: 6601
+    password: 51c02633-59a0-4eda-ada1-e1dec014c8c4
+    skip-cert-verify: true
+
+  # ===== Shadowsocks 入口 =====
+  - name: JMS-1272316
+    type: ss
+    server: c17s1.portablesubmarines.com
+    port: 11336
+    cipher: aes-256-gcm
+    password: euzrM8pd8wYmH9vm
+
+  # ===== SOCKS5 出口1 =====
+  - name: 尼日利亚-01
+    type: socks5
+    server: res25.kookeey.info
+    port: 10487
+    username: 3e86fe1b      # 没有就删
+    password: 2886893d      # 没有就删
+
+  # ===== SOCKS5 出口2 =====
+  - name: 尼日利亚-02
+    type: socks5
+    server: res23.kookeey.info
+    port: 3572
+    username: 4e31d200      # 没有就删
+    password: 9b607ef2      # 没有就删
+
+# ===== 入口自动选择（关键）=====
+proxy-groups:
+  - name: 🚪入口选择
+    type: url-test
+    proxies:
+      - Lv3 香港 01 [2.0]
+      - JMS-1272316
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+
+  # ===== 链式代理（入口 → 出口）=====
+  - name: 🔗 中继代理
+    type: relay
+    proxies:
+      - 🚪入口选择
+      - SOCKS5-OUT
+
+  # ===== 总控制 =====
+  - name: 🚀 节点选择
+    type: select
+    proxies:
+      - 🔗 中继代理
+      - TROJAN-IN
+      - SS-IN
+      - DIRECT
+
+rules:
+  - MATCH,🚀 节点选择
