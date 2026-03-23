@@ -29,12 +29,12 @@ proxies:
     password: 2886893d      # 没有就删
 
   # ===== SOCKS5 出口2 =====
-  - name: 尼日利亚-02
-    type: socks5
-    server: res23.kookeey.info
-    port: 3572
-    username: 4e31d200      # 没有就删
-    password: 9b607ef2      # 没有就删
+  #- name: 尼日利亚-02
+   # type: socks5
+   # server: res23.kookeey.info
+   # port: 3572
+   # username: 4e31d200      # 没有就删
+   # password: 9b607ef2      # 没有就删
 
 # ===== 入口自动选择（关键）=====
 proxy-groups:
