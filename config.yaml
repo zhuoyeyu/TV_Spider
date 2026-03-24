@@ -23,7 +23,7 @@ proxies:
     server: res25.kookeey.info
     port: 10487
     username: 3e86fe1b
-    password: 2886999d
+    password: 2886893d
     udp: true
 
   - name: Lv3 香港 0166 [2.0]
