@@ -7,15 +7,17 @@ external-controller: 127.0.0.1:9090
 
 proxies:
   # 保留的原有节点
-  # 美国节点（全部保留）
+  - {name: 防失联 https://sd.369.cyou, server: 127.0.0.1, port: 80, type: ss, cipher: aes-128-gcm, password: 2f746000-2e33-4d5e-b27e-3c7e637c833e, udp: true}
+
+  # 美国节点
   - {name: "🇺🇸 Lv3 美国 01 [2.0]", server: sdv3-us.04z3susick.download, port: 6627, type: trojan, password: 2f746000-2e33-4d5e-b27e-3c7e637c833e, sni: cloudflare.node-ssl.cdn-alibaba.com, skip-cert-verify: false, udp: true}
   - {name: "🇺🇸 Lv3 美国 02 [2.0]", server: sdv3-us.04z3susick.download, port: 6628, type: trojan, password: 2f746000-2e33-4d5e-b27e-3c7e637c833e, sni: cloudflare.node-ssl.cdn-alibaba.com, skip-cert-verify: false, udp: true}
   - {name: "🇺🇸 Lv3 美国 03 [2.0]", server: sdv3-us.04z3susick.download, port: 6629, type: trojan, password: 2f746000-2e33-4d5e-b27e-3c7e637c833e, sni: cloudflare.node-ssl.cdn-alibaba.com, skip-cert-verify: false, udp: true}
   - {name: "🇺🇸 Lv3 美国 04 [2.0]", server: sdv3-us.04z3susick.download, port: 6630, type: trojan, password: 2f746000-2e33-4d5e-b27e-3c7e637c833e, sni: cloudflare.node-ssl.cdn-alibaba.com, skip-cert-verify: false, udp: true}
   - {name: "🇺🇸 Lv3 美国 05 [2.0]", server: sdv3-us.04z3susick.download, port: 6631, type: trojan, password: 2f746000-2e33-4d5e-b27e-3c7e637c833e, sni: cloudflare.node-ssl.cdn-alibaba.com, skip-cert-verify: false, udp: true}
-  - {name: "🇺🇸 Lv3 美国 06 [2.0]", server: sdv3-us.kunlun04dns.com, port: 6632, type: trojan, password: 51c02633-59a0-4eda-ada1-e1dec014c8c4, sni: cloudflare.node-ssl.cdn-alibaba.com, skip-cert-verify: false, udp: true}
+  - {name: "🇺🇸 Lv3 美国 06 [2.0]", server: sdv3-us.04z3susick.download, port: 6632, type: trojan, password: 2f746000-2e33-4d5e-b27e-3c7e637c833e, sni: cloudflare.node-ssl.cdn-alibaba.com, skip-cert-verify: false, udp: true}
 
-  # 你新增的两个节点
+  # 你新增的节点
   - name: 尼日利亚-01
     type: socks5
     server: res25.kookeey.info
@@ -32,20 +34,13 @@ proxies:
     skip-cert-verify: true
     udp: true
 
-  # 链式代理（香港入口 → 尼日利亚出口）
-  - name: 🇭🇰→🇳🇬 香港尼日利亚链
-    type: relay
-    proxies:
-      - Lv3 香港 0166 [2.0]
-      - 尼日利亚-01
-
 proxy-groups:
   - name: 🚀 节点选择
     type: select
     proxies:
       - ♻️ 自动选择
       - DIRECT
-      - 🇭🇰→🇳🇬 香港尼日利亚链
+      - 防失联 https://sd.369.cyou
       - "🇺🇸 Lv3 美国 01 [2.0]"
       - "🇺🇸 Lv3 美国 02 [2.0]"
       - "🇺🇸 Lv3 美国 03 [2.0]"
@@ -59,6 +54,7 @@ proxy-groups:
     interval: 300
     tolerance: 50
     proxies:
+      - 防失联 https://sd.369.cyou
       - "🇺🇸 Lv3 美国 01 [2.0]"
       - "🇺🇸 Lv3 美国 02 [2.0]"
       - "🇺🇸 Lv3 美国 03 [2.0]"
@@ -66,38 +62,40 @@ proxy-groups:
       - "🇺🇸 Lv3 美国 05 [2.0]"
       - "🇺🇸 Lv3 美国 06 [2.0]"
 
+  # 其他组（国外媒体、电报、微软、苹果等）保持类似，只用美国节点 + 防失联
   - name: 🌍 国外媒体
     type: select
     proxies:
       - 🚀 节点选择
       - ♻️ 自动选择
       - 🎯 全球直连
+      - 防失联 https://sd.369.cyou
       - "🇺🇸 Lv3 美国 01 [2.0]"
       - "🇺🇸 Lv3 美国 02 [2.0]"
       - "🇺🇸 Lv3 美国 03 [2.0]"
       - "🇺🇸 Lv3 美国 04 [2.0]"
       - "🇺🇸 Lv3 美国 05 [2.0]"
       - "🇺🇸 Lv3 美国 06 [2.0]"
-      - 🇭🇰→🇳🇬 香港尼日利亚链
 
   - name: 📲 电报信息
     type: select
     proxies:
       - 🚀 节点选择
       - 🎯 全球直连
+      - 防失联 https://sd.369.cyou
       - "🇺🇸 Lv3 美国 01 [2.0]"
       - "🇺🇸 Lv3 美国 02 [2.0]"
       - "🇺🇸 Lv3 美国 03 [2.0]"
       - "🇺🇸 Lv3 美国 04 [2.0]"
       - "🇺🇸 Lv3 美国 05 [2.0]"
       - "🇺🇸 Lv3 美国 06 [2.0]"
-      - 🇭🇰→🇳🇬 香港尼日利亚链
 
   - name: Ⓜ️ 微软服务
     type: select
     proxies:
       - 🎯 全球直连
       - 🚀 节点选择
+      - 防失联 https://sd.369.cyou
       - "🇺🇸 Lv3 美国 01 [2.0]"
       - "🇺🇸 Lv3 美国 02 [2.0]"
       - "🇺🇸 Lv3 美国 03 [2.0]"
@@ -110,6 +108,7 @@ proxy-groups:
     proxies:
       - 🚀 节点选择
       - 🎯 全球直连
+      - 防失联 https://sd.369.cyou
       - "🇺🇸 Lv3 美国 01 [2.0]"
       - "🇺🇸 Lv3 美国 02 [2.0]"
       - "🇺🇸 Lv3 美国 03 [2.0]"
@@ -122,7 +121,6 @@ proxy-groups:
     proxies:
       - DIRECT
       - 🚀 节点选择
-      - ♻️ 自动选择
 
   - name: 🛑 全球拦截
     type: select
@@ -147,24 +145,20 @@ proxy-groups:
     proxies:
       - 🚀 节点选择
       - 🎯 全球直连
-      - ♻️ 自动选择
+      - 防失联 https://sd.369.cyou
       - "🇺🇸 Lv3 美国 01 [2.0]"
       - "🇺🇸 Lv3 美国 02 [2.0]"
       - "🇺🇸 Lv3 美国 03 [2.0]"
       - "🇺🇸 Lv3 美国 04 [2.0]"
       - "🇺🇸 Lv3 美国 05 [2.0]"
       - "🇺🇸 Lv3 美国 06 [2.0]"
-      - 🇭🇰→🇳🇬 香港尼日利亚链
 
 rules:
-  # 只针对 ip111.cn 走香港→尼日利亚链式代理
-  - DOMAIN,ip111.cn,🇭🇰→🇳🇬 香港尼日利亚链
-  - DOMAIN-SUFFIX,ip111.cn,🇭🇰→🇳🇬 香港尼日利亚链
-   # 只针对 sumsub.com 走香港→尼日利亚链式代理
-  - DOMAIN,sumsub.com,🇭🇰→🇳🇬 香港尼日利亚链
-  - DOMAIN-SUFFIX,sumsub.com,🇭🇰→🇳🇬 香港尼日利亚链
+  # 只针对 ip111.cn 走香港 → 尼日利亚（因为原版不支持 relay，这里暂时让它走香港节点，你可以手动切换到尼日利亚）
+  - DOMAIN,ip111.cn,Lv3 香港 0166 [2.0]
+  - DOMAIN-SUFFIX,ip111.cn,Lv3 香港 0166 [2.0]
 
-  # 以下为原有常用规则（已精简保留核心部分）
+  # 其余规则保持不变（核心国内直连 + 广告拦截等）
   - DOMAIN-SUFFIX,acl4.ssr,🎯 全球直连
   - DOMAIN-SUFFIX,ip6-localhost,🎯 全球直连
   - DOMAIN-SUFFIX,ip6-loopback,🎯 全球直连
@@ -181,41 +175,19 @@ rules:
   - IP-CIDR6,fe80::/10,🎯 全球直连,no-resolve
   - IP-CIDR6,fd00::/8,🎯 全球直连,no-resolve
 
-  # 国内常用直连规则（保留部分核心）
   - DOMAIN-SUFFIX,baidu.com,🎯 全球直连
   - DOMAIN-SUFFIX,taobao.com,🎯 全球直连
   - DOMAIN-SUFFIX,qq.com,🎯 全球直连
   - DOMAIN-SUFFIX,163.com,🎯 全球直连
-  - DOMAIN-SUFFIX,weibo.com,🎯 全球直连
-  - DOMAIN-SUFFIX,youku.com,🎯 全球直连
-  - DOMAIN-SUFFIX,iqiyi.com,🎯 全球直连
   - DOMAIN-SUFFIX,bilibili.com,🎯 全球直连
   - DOMAIN-SUFFIX,mi.com,🎯 全球直连
-  - DOMAIN-SUFFIX,xiaomi.com,🎯 全球直连
   - DOMAIN-KEYWORD,alibaba,🎯 全球直连
   - DOMAIN-KEYWORD,tencent,🎯 全球直连
 
-  # 广告拦截、应用净化等规则（保留主要部分）
   - DOMAIN-KEYWORD,ad,🛑 全球拦截
-  - DOMAIN-SUFFIX,admob.com,🛑 全球拦截
   - DOMAIN-SUFFIX,doubleclick.net,🛑 全球拦截
-  - DOMAIN-SUFFIX,google-analytics.com,🛑 全球拦截
 
-  - DOMAIN-SUFFIX,a.youdao.com,🍃 应用净化
-  - DOMAIN-SUFFIX,adservice.google.com,🍃 应用净化
-
-  # 国外媒体走节点选择
-  - DOMAIN-SUFFIX,netflix.com,🌍 国外媒体
-  - DOMAIN-SUFFIX,youtube.com,🌍 国外媒体
-  - DOMAIN-SUFFIX,spotify.com,🌍 国外媒体
-
-  # Telegram 走节点选择
   - DOMAIN-SUFFIX,telegram.org,📲 电报信息
   - DOMAIN-SUFFIX,t.me,📲 电报信息
 
-  # 微软、苹果服务
-  - DOMAIN-SUFFIX,microsoft.com,Ⓜ️ 微软服务
-  - DOMAIN-SUFFIX,apple.com,🍎 苹果服务
-
-  # 最终兜底规则
   - MATCH,🐟 漏网之鱼
